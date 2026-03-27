@@ -24,11 +24,14 @@ A Claude Code plugin that assesses and rewrites text to eliminate detectable AI 
 ## Usage
 
 Just say any of these to Claude Code:
+- "improve this text" / "improve this copy"
 - "humanize this text"
+- "rewrite this" / "fix this text"
 - "score this copy"
 - "check the copy in this figma" + paste a Figma URL
 - "assess this screen" + share a screenshot
 - "make this sound less AI"
+- "clean up this copy" / "polish this text"
 
 Or invoke directly:
 ```
