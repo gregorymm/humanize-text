@@ -2,6 +2,8 @@
 
 A Claude Code plugin that assesses and rewrites text to eliminate detectable AI writing patterns. Based on Wikipedia's [Signs of AI Writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) field guide, adapted for UX copywriting, product copy, and marketing text.
 
+![humanize-text skill](humanize.gif)
+
 ## Installation
 
 **Add the marketplace:**
