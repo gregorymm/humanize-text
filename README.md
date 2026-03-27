@@ -1,6 +1,18 @@
-# humanize-text
+# Humanize Text Plugin for Claude Code
 
-A Claude Code skill that assesses and rewrites text to eliminate detectable AI writing patterns. Based on Wikipedia's [Signs of AI Writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) field guide, adapted for UX copywriting.
+A Claude Code plugin that assesses and rewrites text to eliminate detectable AI writing patterns. Based on Wikipedia's [Signs of AI Writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) field guide, adapted for UX copywriting, product copy, and marketing text.
+
+## Installation
+
+**Add the marketplace:**
+```
+/plugin marketplace add gregorymm/humanize-text
+```
+
+**Install the plugin:**
+```
+/plugin install humanize-text@gregorymm-humanize
+```
 
 ## What it does
 
@@ -8,14 +20,6 @@ A Claude Code skill that assesses and rewrites text to eliminate detectable AI w
 - **Rewrites** flagged passages to read as naturally human-written
 - **Works with Figma** -- pass a Figma URL and it extracts all copy, scores it by UI role (headlines, body, microcopy, nav), and can push improved text back to Figma
 - **Works with screenshots** -- share a UI screenshot and it identifies every visible text element, scores it, and provides a before/after table
-
-## Install
-
-Copy the `SKILL.md` file to your Claude Code skills directory:
-
-```
-~/.claude/skills/humanize-text/SKILL.md
-```
 
 ## Usage
 
@@ -25,6 +29,11 @@ Just say any of these to Claude Code:
 - "check the copy in this figma" + paste a Figma URL
 - "assess this screen" + share a screenshot
 - "make this sound less AI"
+
+Or invoke directly:
+```
+/humanize-text [paste your text here]
+```
 
 ## Scoring
 
