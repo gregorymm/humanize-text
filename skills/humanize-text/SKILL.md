@@ -390,10 +390,14 @@ AI: **Feature Name:** Description of feature that does a thing.
 
 ### 6. Punctuation & Formatting
 
-#### 6a. No em dashes
-**NEVER use em dashes (--) in rewritten text.** Em dashes are one of the strongest AI writing signals. Always replace with commas, parentheses, colons, or separate sentences. No exceptions, no "just one."
-- Bad: "Paper syncs both ways -- edit in Paper, it updates the code"
-- Good: "Paper syncs both ways. Edit in Paper, it updates the code."
+#### 6a. Em dash rules
+**Personal messages, emails, outreach, LinkedIn posts:** NEVER use em dashes. Zero. Replace with commas, parentheses, colons, or separate sentences. Em dashes in personal writing are one of the strongest AI tells.
+- Bad: "I saw your product -- looks like you're scaling fast"
+- Good: "I saw your product. Looks like you're scaling fast."
+
+**UI text (feature descriptions, landing pages, tooltips):** Allowed only when the alternative is noticeably clunky, and max 1 per block of text. If a comma or period works, use that instead.
+- OK: "Real-time sync, both ways" (comma works, no dash needed)
+- OK if unavoidable: "Design with your real components -- Button, Modal, the same ones in your codebase" (listing after a dash reads better than alternatives here)
 
 #### 6b. Curly quotation marks
 ChatGPT uses curly quotes. Inconsistent mixing is a signal. Normalize.
@@ -423,7 +427,7 @@ Dead giveaways -- remove completely:
 - [ ] Every sentence adds concrete value? (Delete anything that could apply to any product.)
 - [ ] Sentence length varies naturally? (Mix short and long.)
 - [ ] Using "is" and "are" naturally?
-- [ ] Zero em dashes in the text? (replace all with commas, colons, periods, or parentheses)
+- [ ] Zero em dashes in personal messages/emails/outreach? (for UI text: max 1 per block, only if unavoidable)
 - [ ] No AI pleasantries? ("happy to", "hope you're doing well", "feel free to", "excited to", "don't hesitate")
 - [ ] Headings in sentence case?
 - [ ] User is the subject of sentences, not the product?
