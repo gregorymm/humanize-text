@@ -390,8 +390,10 @@ AI: **Feature Name:** Description of feature that does a thing.
 
 ### 6. Punctuation & Formatting
 
-#### 6a. Em dash overuse
-AI uses em dashes where commas or parentheses work. Limit to 1-2 per page.
+#### 6a. No em dashes
+**NEVER use em dashes (--) in rewritten text.** Em dashes are one of the strongest AI writing signals. Always replace with commas, parentheses, colons, or separate sentences. No exceptions, no "just one."
+- Bad: "Paper syncs both ways -- edit in Paper, it updates the code"
+- Good: "Paper syncs both ways. Edit in Paper, it updates the code."
 
 #### 6b. Curly quotation marks
 ChatGPT uses curly quotes. Inconsistent mixing is a signal. Normalize.
@@ -408,6 +410,7 @@ Dead giveaways -- remove completely:
 - **Disclaimers:** "It's important to note...", "Worth noting...", "It's crucial to remember..."
 - **Summaries:** "In summary...", "In conclusion...", "Overall..."
 - **Chatbot language:** "I hope this helps", "Would you like...", "Here is a...", "Let me know if..."
+- **AI pleasantries (ban in rewrites too):** "Hope you're doing well", "Hope this finds you well", "Happy to help", "Happy to set that up", "Happy to chat", "Feel free to reach out", "Don't hesitate to", "I'd love to", "Excited to share", "Thrilled to announce", "Glad to hear". These sound polite but are AI tells. Use direct language instead: "Want to try it?" not "Happy to set that up if you'd like!"
 - **Cutoff language:** "As of my last update...", "Based on available information..."
 - **Prompt refusals:** "As an AI language model..."
 - **Placeholders:** `[insert X]`, `XX-XX` dates, `URL`
@@ -420,7 +423,8 @@ Dead giveaways -- remove completely:
 - [ ] Every sentence adds concrete value? (Delete anything that could apply to any product.)
 - [ ] Sentence length varies naturally? (Mix short and long.)
 - [ ] Using "is" and "are" naturally?
-- [ ] Fewer than 2 em dashes per page?
+- [ ] Zero em dashes in the text? (replace all with commas, colons, periods, or parentheses)
+- [ ] No AI pleasantries? ("happy to", "hope you're doing well", "feel free to", "excited to", "don't hesitate")
 - [ ] Headings in sentence case?
 - [ ] User is the subject of sentences, not the product?
 - [ ] Copy length matches its context (button, headline, feature block, etc.)?
@@ -436,7 +440,7 @@ Dead giveaways -- remove completely:
 | 5 | Over-length for context | Cut to match: button, tooltip, hero, etc. |
 | 6 | Superficial "-ing" phrases | Delete or convert to concrete benefit |
 | 7 | Copulative avoidance | Use "is", "has", "does" |
-| 8 | Em dash overuse | Commas or parentheses |
+| 8 | Em dashes | Remove all. Use commas, colons, periods. |
 | 9 | Negative parallelisms | Pick one claim, state it directly |
 | 10 | Meta-content/disclaimers | Delete entirely |
 
