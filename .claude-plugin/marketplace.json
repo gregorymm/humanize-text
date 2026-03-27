@@ -1,0 +1,20 @@
+{
+  "name": "gregorymm-humanize-text",
+  "owner": {
+    "name": "Gregory Muryn-Mukha"
+  },
+  "metadata": {
+    "description": "Assess and rewrite text to remove AI writing patterns. Scores 7 categories, works with raw text, Figma URLs, and UI screenshots."
+  },
+  "plugins": [
+    {
+      "name": "humanize-text",
+      "source": "./",
+      "description": "Scores and rewrites text to eliminate AI writing patterns. Works with raw text, Figma URLs, and UI screenshots. Based on Wikipedia's Signs of AI Writing field guide, adapted for UX copywriting.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": ["humanize", "ai-detection", "ux-copywriting", "rewrite", "figma", "scoring"],
+      "category": "writing"
+    }
+  ]
+}
