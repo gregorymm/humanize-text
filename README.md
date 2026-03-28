@@ -58,6 +58,33 @@ Each category is rated 1-10. Total is out of 70, converted to a Human Score perc
 6. **Punctuation/Formatting** -- em dash overuse, curly quotes, Markdown artifacts
 7. **Meta-Content** -- disclaimers, summaries, chatbot language, placeholders
 
+## Figma Plugin
+
+Assess and rewrite text layers directly in Figma. No backend, no server. Your API key stays on your machine.
+
+### Install
+
+1. Download or clone this repo
+2. `cd figma-plugin && npm install && npm run build`
+3. In Figma desktop: Plugins > Development > Import plugin from manifest
+4. Select `figma-plugin/manifest.json`
+
+### Setup
+
+1. Get an API key from [console.anthropic.com](https://console.anthropic.com)
+2. Open the plugin and paste your key
+3. Your key is stored locally via Figma's clientStorage
+
+### How it works
+
+1. Select text layers (or leave empty for whole page)
+2. Click "Assess"
+3. View scorecard and suggested rewrites
+4. Click "Apply" per item or "Apply all"
+5. "Undo all" to revert
+
+Uses Claude Sonnet for assessment. You pay Anthropic directly per API call with your own key.
+
 ## Source
 
 Pattern catalog derived from [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (54-page field guide, 30+ distinct patterns from thousands of real examples).
