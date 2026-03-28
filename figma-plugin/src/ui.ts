@@ -9,6 +9,7 @@ import type {
   UIState,
   CachedRules,
 } from "./types";
+import { BUNDLED_RULES } from "./bundled-rules";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -159,9 +160,9 @@ async function fetchRules(forceRefresh = false): Promise<string> {
     setCachedRules(content);
     return content;
   } catch {
-    // Fallback to stale cache
+    // Fallback to stale cache, then bundled rules
     if (cached) return cached.content;
-    throw new Error("Could not load assessment rules. Check your internet connection.");
+    return BUNDLED_RULES;
   }
 }
 

@@ -7,8 +7,8 @@
   "editorType": ["figma"],
   "networkAccess": {
     "allowedDomains": [
-      "api.anthropic.com",
-      "raw.githubusercontent.com"
+      "https://api.anthropic.com",
+      "https://raw.githubusercontent.com"
     ]
   }
 }
