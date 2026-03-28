@@ -167,14 +167,7 @@ async function fetchRules(forceRefresh = false): Promise<string> {
 }
 
 function updateRulesCacheDisplay() {
-  const cached = getCachedRules();
-  const el = $("rulesCacheTime");
-  if (cached) {
-    const date = new Date(cached.fetchedAt);
-    el.textContent = date.toLocaleString();
-  } else {
-    el.textContent = "Never";
-  }
+  // No-op: rules cache UI removed in settings simplification
 }
 
 // ---------------------------------------------------------------------------
@@ -571,14 +564,6 @@ function setupEventListeners() {
     }
   });
 
-  $("refreshRulesBtn").addEventListener("click", async () => {
-    try {
-      rulesContent = await fetchRules(true);
-      updateRulesCacheDisplay();
-    } catch (err) {
-      // Silently fall back
-    }
-  });
 }
 
 // ---------------------------------------------------------------------------
