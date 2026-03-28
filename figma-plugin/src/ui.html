@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>/* __CSS__ */</style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="header">
+      <h1>Humanize Text</h1>
+      <button class="gear-btn" id="settingsBtn" title="Settings">&#9881;</button>
+    </div>
+
+    <div id="state-no-key">
+      <div class="input-group">
+        <label>Anthropic API Key</label>
+        <input type="password" class="input" id="apiKeyInput" placeholder="sk-ant-..." />
+        <p class="help-text">Your key is stored locally and never leaves your machine.<br/>Get one at <a href="https://console.anthropic.com" target="_blank" class="link">console.anthropic.com</a></p>
+      </div>
+      <button class="btn btn-primary" id="saveKeyBtn">Save key</button>
+    </div>
+
+    <div id="state-ready" class="hidden">
+      <button class="btn btn-primary" id="assessBtn">Assess selected layers</button>
+    </div>
+
+    <div id="state-warning" class="hidden">
+      <div class="warning-box">
+        <p id="warningText"></p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-primary btn-small" id="confirmAssessBtn">Continue</button>
+          <button class="btn btn-outline btn-small" id="cancelAssessBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="state-loading" class="hidden">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <span id="loadingText">Scanning text layers...</span>
+      </div>
+    </div>
+
+    <div id="state-error" class="hidden">
+      <div class="error-box" id="errorText"></div>
+      <button class="btn btn-outline" id="retryBtn">Try again</button>
+    </div>
+
+    <div id="state-results" class="hidden">
+      <div id="successBanner" class="success-banner hidden">
+        <span>&#10003;</span>
+        <span id="successText"></span>
+      </div>
+      <div class="scorecard" id="scorecard">
+        <div class="score-header">
+          <div>
+            <div class="score-percent" id="scorePercent">--</div>
+            <div class="score-label">Human Score</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <div id="categoryRows"></div>
+      </div>
+      <div class="rewrite-list" id="rewriteList"></div>
+    </div>
+
+    <div class="bottom-bar hidden" id="bottomBar">
+      <button class="btn btn-green" id="applyAllBtn">Apply all</button>
+      <button class="btn btn-outline hidden" id="undoAllBtn">Undo all</button>
+    </div>
+
+    <div class="settings-panel hidden" id="settingsPanel">
+      <h2>Settings</h2>
+      <div class="input-group">
+        <label>API Key</label>
+        <div style="display:flex;gap:6px;">
+          <input type="password" class="input" id="settingsKeyInput" placeholder="sk-ant-..." style="flex:1;" />
+          <button class="btn btn-outline btn-small" id="toggleKeyVisibility">Show</button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-small" id="updateKeyBtn" style="margin-bottom:12px;">Update key</button>
+      <div class="settings-row">
+        <span class="label">Rules cached</span>
+        <span class="value" id="rulesCacheTime">Never</span>
+      </div>
+      <button class="btn btn-outline btn-small" id="refreshRulesBtn" style="margin-top:8px;margin-bottom:12px;">Refresh rules</button>
+      <div class="settings-row">
+        <span class="label">API Key</span>
+        <button class="btn btn-outline btn-small" id="clearKeyBtn" style="border-color:#F87171;color:#F87171;">Clear key</button>
+      </div>
+      <button class="btn btn-outline" id="closeSettingsBtn" style="margin-top:16px;">Close</button>
+    </div>
+  </div>
+  <script>/* __JS__ */</script>
+</body>
+</html>

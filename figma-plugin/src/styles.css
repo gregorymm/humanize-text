@@ -1,0 +1,416 @@
+/* Humanize Text — Figma Plugin Dark Theme */
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #e0e0e0;
+  background: #2c2c2c;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  padding: 12px;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.header h1 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.gear-btn {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.gear-btn:hover {
+  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+  width: 100%;
+}
+
+.btn:hover {
+  opacity: 0.88;
+}
+
+.btn:active {
+  opacity: 0.75;
+}
+
+.btn-primary {
+  background: #A78BFA;
+  color: #1a1a1a;
+  border-color: #A78BFA;
+}
+
+.btn-green {
+  background: #C6F96C;
+  color: #1a1a1a;
+  border-color: #C6F96C;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+.btn-outline:hover {
+  border-color: #888;
+}
+
+.btn-small {
+  padding: 5px 10px;
+  font-size: 11px;
+  width: auto;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #1e1e1e;
+  color: #e0e0e0;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: #A78BFA;
+}
+
+.input::placeholder {
+  color: #777;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 4px;
+}
+
+.help-text {
+  font-size: 10px;
+  color: #888;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.link {
+  color: #A78BFA;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Scorecard */
+.scorecard {
+  background: #222;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.score-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.score-percent {
+  font-size: 28px;
+  font-weight: 700;
+  color: #C6F96C;
+}
+
+.score-percent.green { color: #C6F96C; }
+.score-percent.yellow { color: #FACC15; }
+.score-percent.red { color: #F87171; }
+
+.score-label {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #444;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: #C6F96C;
+  transition: width 0.4s ease;
+}
+
+.progress-fill.green { background: #C6F96C; }
+.progress-fill.yellow { background: #FACC15; }
+.progress-fill.red { background: #F87171; }
+
+.category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+
+.category-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.category-name {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.category-score {
+  font-size: 11px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+/* Rewrite List */
+.rewrite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rewrite-item {
+  background: #222;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.rewrite-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.layer-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: #A78BFA;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.layer-name:hover {
+  text-decoration: underline;
+}
+
+.rewrite-original {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.rewrite-arrow {
+  color: #C6F96C;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.rewrite-suggested {
+  font-size: 11px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.rewrite-issue {
+  font-size: 10px;
+  color: #A78BFA;
+  margin-top: 4px;
+}
+
+.applied-check {
+  color: #C6F96C;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #2c2c2c;
+  border-top: 1px solid #444;
+  z-index: 5;
+}
+
+.bottom-bar .btn {
+  flex: 1;
+}
+
+/* Alert Boxes */
+.warning-box {
+  background: rgba(250, 204, 21, 0.1);
+  border: 1px solid #FACC15;
+  border-radius: 6px;
+  padding: 10px;
+  color: #FACC15;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.error-box {
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid #F87171;
+  border-radius: 6px;
+  padding: 10px;
+  color: #F87171;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.success-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(198, 249, 108, 0.1);
+  border: 1px solid #C6F96C;
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #C6F96C;
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+
+/* Settings Panel */
+.settings-panel {
+  position: fixed;
+  inset: 0;
+  background: #2c2c2c;
+  z-index: 10;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.settings-panel h2 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.settings-row .label {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.settings-row .value {
+  font-size: 11px;
+  color: #e0e0e0;
+}
+
+/* Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-top-color: #A78BFA;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0;
+  justify-content: center;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 24px 12px;
+  color: #777;
+  font-size: 12px;
+}
