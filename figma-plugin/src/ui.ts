@@ -306,12 +306,16 @@ function renderScorecard(result: AssessmentResult) {
 
 function renderRewrites(rewrites: RewriteSuggestion[]) {
   const listEl = $("rewriteList");
+  const headerEl = $("rewriteHeader");
   listEl.innerHTML = "";
 
   if (rewrites.length === 0) {
-    listEl.innerHTML = '<div class="empty-state">No rewrites needed — this text looks human.</div>';
+    headerEl.style.display = "none";
+    listEl.innerHTML = '<div class="empty-state">No rewrites needed. Text looks human.</div>';
     return;
   }
+
+  headerEl.style.display = "flex";
 
   for (const rw of rewrites) {
     const item = document.createElement("div");
