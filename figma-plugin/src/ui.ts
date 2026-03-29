@@ -32,6 +32,7 @@ let textNodes: TextNodeData[] = [];
 let originals: Map<string, string> = new Map(); // nodeId -> original text
 let appliedSet: Set<string> = new Set(); // nodeIds that have been applied
 let hasAppliedAny = false;
+let pendingApplyIds: string[] = []; // track which IDs are being applied
 
 // ---------------------------------------------------------------------------
 // DOM refs
@@ -338,6 +339,10 @@ function renderRewrites(rewrites: RewriteSuggestion[]) {
 }
 
 function renderResults(result: AssessmentResult) {
+  // Filter out rewrites where no actual change is suggested
+  result.rewrites = result.rewrites.filter(rw =>
+    rw.suggested && rw.original && rw.suggested.trim() !== rw.original.trim()
+  );
   lastResult = result;
   renderScorecard(result);
   renderRewrites(result.rewrites);
@@ -433,11 +438,11 @@ function applySingle(nodeId: string) {
   const rw = lastResult.rewrites.find((r) => r.id === nodeId);
   if (!rw) return;
 
+  const btn = document.querySelector(`[data-apply-single="${nodeId}"]`) as HTMLElement;
+  if (btn) { btn.textContent = "..."; btn.style.pointerEvents = "none"; }
+
+  pendingApplyIds = [nodeId];
   postToSandbox({ type: "apply-rewrite", nodeId: rw.id, newText: rw.suggested });
-  appliedSet.add(nodeId);
-  hasAppliedAny = true;
-  renderRewrites(lastResult.rewrites);
-  $("undoAllBtn").classList.remove("hidden");
 }
 
 function applyAll() {
@@ -445,15 +450,11 @@ function applyAll() {
   const unapplied = lastResult.rewrites.filter((r) => !appliedSet.has(r.id));
   if (unapplied.length === 0) return;
 
+  pendingApplyIds = unapplied.map(r => r.id);
   postToSandbox({
     type: "apply-all",
     rewrites: unapplied.map((r) => ({ id: r.id, text: r.suggested })),
   });
-
-  for (const rw of unapplied) {
-    appliedSet.add(rw.id);
-  }
-  hasAppliedAny = true;
 }
 
 function undoAll() {
@@ -579,33 +580,53 @@ function handleSandboxMessage(msg: SandboxMessage) {
       handleTextNodes(msg.nodes, msg.totalCount);
       break;
 
-    case "apply-result":
-      if (msg.success && lastResult) {
-        const applied = msg.applied;
-        if (applied === lastResult.rewrites.length || appliedSet.size === lastResult.rewrites.length) {
-          renderRewrites(lastResult.rewrites);
-          setState("applied");
-          showSuccess(`Applied ${applied} rewrite${applied !== 1 ? "s" : ""}`);
-        } else {
-          renderRewrites(lastResult.rewrites);
-          if (msg.failed.length > 0) {
-            showSuccess(`Applied ${applied}, ${msg.failed.length} failed`);
-          } else {
-            showSuccess(`Applied ${applied} rewrite${applied !== 1 ? "s" : ""}`);
-          }
+    case "apply-result": {
+      if (!lastResult) break;
+      const failedSet = new Set(msg.failed);
+
+      // Mark successfully applied nodes from the pending batch
+      for (const id of pendingApplyIds) {
+        if (!failedSet.has(id)) {
+          appliedSet.add(id);
         }
       }
+      pendingApplyIds = [];
+
+      if (msg.applied > 0) {
+        hasAppliedAny = true;
+      }
+
+      renderRewrites(lastResult.rewrites);
+
+      // Show/hide buttons based on state
+      const allApplied = lastResult.rewrites.every(r => appliedSet.has(r.id));
+      if (allApplied) {
+        $("applyAllBtn").classList.add("hidden");
+      }
+      if (hasAppliedAny) {
+        $("undoAllBtn").classList.remove("hidden");
+      }
+
+      if (msg.failed.length > 0) {
+        showSuccess(`Applied ${msg.applied}, ${msg.failed.length} failed`);
+      } else if (msg.applied > 0) {
+        showSuccess(`Applied ${msg.applied} rewrite${msg.applied !== 1 ? "s" : ""}`);
+      }
       break;
+    }
 
     case "undo-result":
       if (msg.success) {
         appliedSet.clear();
         hasAppliedAny = false;
+        pendingApplyIds = [];
         if (lastResult) {
           renderRewrites(lastResult.rewrites);
         }
-        setState("results");
-        showSuccess(`Restored ${msg.restored} layer${msg.restored !== 1 ? "s" : ""}`);
+        // Hide undo button, show apply button, hide success banner
+        $("undoAllBtn").classList.add("hidden");
+        $("applyAllBtn").classList.remove("hidden");
+        $("successBanner").classList.add("hidden");
       }
       break;
   }
