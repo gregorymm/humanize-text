@@ -1,4 +1,4 @@
-// Auto-generated from SKILL.md — used as fallback when GitHub fetch fails
+// Auto-generated from SKILL.md
 export const BUNDLED_RULES = `
 ---
 name: humanize-text
@@ -13,7 +13,7 @@ Assess and rewrite text to eliminate AI authorship signals. Based on Wikipedia's
 
 Works with three input types: raw text, Figma URLs, and UI screenshots.
 
-**Core principle:** AI text regresses to statistical mean -- it replaces specific, human details with generic, positive-sounding filler. Good UX copy is the opposite: specific, concise, and written for a real person doing a real thing.
+**Core principle:** AI text regresses to statistical mean. It replaces specific, human details with generic, positive-sounding filler. Good UX copy is the opposite: specific, concise, written for a real person doing a real thing.
 
 ## When to Use
 
@@ -48,13 +48,13 @@ Detect the input type and follow the matching workflow:
 
 When the user provides a Figma URL:
 
-### Step 1 -- Extract design context and screenshot
+### Step 1: Extract design context and screenshot
 
 Use \`get_design_context\` with the fileKey and nodeId parsed from the URL. Also use \`get_screenshot\` for visual reference. Parse the URL:
-- \`figma.com/design/:fileKey/:fileName?node-id=:nodeId\` -- convert \`-\` to \`:\` in nodeId
-- \`figma.com/design/:fileKey/branch/:branchKey/:fileName\` -- use branchKey as fileKey
+- \`figma.com/design/:fileKey/:fileName?node-id=:nodeId\` (convert \`-\` to \`:\` in nodeId)
+- \`figma.com/design/:fileKey/branch/:branchKey/:fileName\` (use branchKey as fileKey)
 
-### Step 2 -- Extract all text content
+### Step 2: Extract all text content
 
 From the design context response, identify every text node and its content. Group text by UI role:
 
@@ -65,7 +65,7 @@ From the design context response, identify every text node and its content. Grou
 | Microcopy | Buttons, labels, tooltips, placeholders, error states, empty states |
 | Navigation | Menu items, breadcrumbs, tab labels |
 
-### Step 3 -- Assess and score
+### Step 3: Assess and score
 
 Run the full 7-category assessment on all extracted text. Score each text group separately AND give a total score.
 
@@ -88,7 +88,7 @@ Output format:
 [standard 7-category scorecard]
 \`\`\`
 
-### Step 4 -- Rewrite and push back to Figma
+### Step 4: Rewrite and push back to Figma
 
 For each flagged text node, provide the improved copy in a before/after table. Then ask: **"Push these changes to Figma?"**
 
@@ -99,7 +99,7 @@ If yes:
 3. For each text change, use \`use_figma\` with JavaScript that finds the node, loads its font, and updates the characters
 4. Batch multiple changes into minimal \`use_figma\` calls
 
-Example JavaScript for \`use_figma\` -- single node:
+Example JavaScript for \`use_figma\` (single node):
 \`\`\`javascript
 const node = figma.getNodeById("NODE_ID");
 if (node && node.type === "TEXT") {
@@ -131,22 +131,22 @@ for (const change of changes) {
 
 When the user provides a UI screenshot:
 
-### Step 1 -- Read the image
+### Step 1: Read the image
 
 Use the Read tool on the image file. As a multimodal model, you can see the UI and all visible text.
 
-### Step 2 -- Extract all visible text
+### Step 2: Extract all visible text
 
 List every piece of text visible in the screenshot, grouped by UI role (headlines, body, microcopy, navigation). Note the approximate location of each element.
 
-### Step 3 -- Assess and score
+### Step 3: Assess and score
 
 Run the full 7-category assessment. With screenshots you can also assess text in visual context:
 - Is the copy length appropriate for the UI element's size?
 - Does the microcopy match the interaction pattern?
 - Are labels clear enough without surrounding context?
 
-### Step 4 -- Provide before/after table
+### Step 4: Provide before/after table
 
 \`\`\`
 | Element | Location | Current | Suggested | Issue |
@@ -176,11 +176,11 @@ digraph humanize {
 }
 \`\`\`
 
-1. **Assess** -- scan the input against all 7 categories, score each 1-10
-2. **Scorecard** -- output the category scores, total score, and flagged instances
-3. **Rewrite** -- fix flagged passages (always do this unless user only asked for assessment)
-4. **Self-check** -- re-scan rewritten text, confirm no new patterns
-5. **Output** -- clean text + updated scorecard showing improvement
+1. **Assess**: scan the input against all 7 categories, score each 1-10
+2. **Scorecard**: output the category scores, total score, and flagged instances
+3. **Rewrite**: fix flagged passages (always do this unless user only asked for assessment)
+4. **Self-check**: re-scan rewritten text, confirm no new patterns
+5. **Output**: clean text + updated scorecard showing improvement
 
 ---
 
@@ -229,7 +229,7 @@ AI models overuse specific words. One or two may be coincidence; clusters are th
 
 **UX copy additions to watch:** seamless/seamlessly, empower, unlock, elevate, streamline, leverage, robust, cutting-edge, innovative, transformative, revolutionize, game-changing, next-level, state-of-the-art, best-in-class, world-class, holistic
 
-**Fix -- swap table:**
+**Fix (swap table):**
 
 | AI word | UX-friendly alternatives |
 |---------|------------------------|
@@ -250,7 +250,7 @@ AI models overuse specific words. One or two may be coincidence; clusters are th
 | garner | get, earn, win |
 | fostering | building, growing, encouraging |
 | showcase | show, highlight, feature |
-| Additionally (sentence start) | Also, Plus, And -- or just merge sentences |
+| Additionally (sentence start) | Also, Plus, And. Or just merge sentences. |
 
 **Rule:** Don't swap one AI word for another. If the sentence is filler, delete it.
 
@@ -309,7 +309,7 @@ AI avoids simple verbs: "serves as", "stands as", "represents", "features" (for 
 #### 3b. Negative parallelisms
 **Signals:** "Not only... but also...", "It's not just..., it's...", "More than just a..."
 
-**UX version:** "More than just a CRM -- it's your growth engine"
+**UX version:** "More than just a CRM. It's your growth engine."
 
 **Fix:** Pick the stronger claim. Say it once:
 - Bad: "Not just a task manager, but a complete productivity ecosystem"
@@ -318,7 +318,7 @@ AI avoids simple verbs: "serves as", "stands as", "represents", "features" (for 
 #### 3c. Rule of three
 AI defaults to "X, Y, and Z" to sound comprehensive.
 
-**Fix:** If all three matter, keep them. If it's filler triads like "efficiency, productivity, and growth" -- cut to what's real.
+**Fix:** If all three matter, keep them. If it's filler triads like "efficiency, productivity, and growth," cut to what's real.
 
 #### 3d. Elegant variation (synonym cycling)
 AI avoids repeating words by cycling: "the tool", "the platform", "the solution", "the product."
@@ -363,7 +363,7 @@ This category scores how well the text follows UX writing best practices. AI cop
 **Score low when:** Text is 2x longer than it needs to be for its context.
 
 #### 4e. Natural voice and rhythm
-**Problem:** AI produces uniform, mid-length sentences with no personality. Real UX copy has rhythm -- short punchy lines mixed with longer ones. It can be blunt. Incomplete sentences are fine.
+**Problem:** AI produces uniform, mid-length sentences with no personality. Real UX copy has rhythm. Short punchy lines mixed with longer ones. It can be blunt. Incomplete sentences are fine.
 - Bad: "Our solution provides you with the tools you need to manage your projects effectively and efficiently."
 - Good: "Manage projects. Track progress. Ship on time."
 
@@ -393,13 +393,13 @@ AI: **Feature Name:** Description of feature that does a thing.
 ### 6. Punctuation & Formatting
 
 #### 6a. Em dash rules
-**Personal messages, emails, outreach, LinkedIn posts:** NEVER use em dashes. Zero. Replace with commas, parentheses, colons, or separate sentences. Em dashes in personal writing are one of the strongest AI tells.
-- Bad: "I saw your product -- looks like you're scaling fast"
-- Good: "I saw your product. Looks like you're scaling fast."
+**Default: do not use em dashes.** They are one of the strongest AI writing signals. Replace with commas, parentheses, colons, or separate sentences.
 
-**UI text (feature descriptions, landing pages, tooltips):** Allowed only when the alternative is noticeably clunky, and max 1 per block of text. If a comma or period works, use that instead.
-- OK: "Real-time sync, both ways" (comma works, no dash needed)
-- OK if unavoidable: "Design with your real components -- Button, Modal, the same ones in your codebase" (listing after a dash reads better than alternatives here)
+**Only exception:** UI text (feature descriptions, landing pages) where the sentence genuinely has no clean alternative. Max 1 per page. If a comma or period works, use that.
+
+- Bad: "I saw your product, looks like you're scaling fast"
+- Good: "I saw your product. Looks like you're scaling fast."
+- Bad: "Real-time sync, both ways" uses a comma just fine. No dash needed.
 
 #### 6b. Curly quotation marks
 ChatGPT uses curly quotes. Inconsistent mixing is a signal. Normalize.
@@ -411,7 +411,7 @@ Leftover \`**bold**\`, \`# headings\` from chatbot output. Strip for target form
 
 ### 7. Meta-Content (delete entirely)
 
-Dead giveaways -- remove completely:
+Dead giveaways. Remove completely:
 
 - **Disclaimers:** "It's important to note...", "Worth noting...", "It's crucial to remember..."
 - **Summaries:** "In summary...", "In conclusion...", "Overall..."
@@ -456,7 +456,7 @@ Dead giveaways -- remove completely:
 
 **Losing meaning:** Extract the real fact from inflated passages. Don't delete everything.
 
-**Making it flat:** The goal isn't dumbed-down text. It's text a real person would write -- specific, varied, occasionally imperfect, with personality.
+**Making it flat:** The goal isn't dumbed-down text. It's text a real person would write: specific, varied, occasionally imperfect, with personality.
 
 **Swapping AI words for AI words:** "Explores the rich landscape" is no better than "delves into the intricate tapestry." Write "looks at the range of" or whatever is actually precise.
 

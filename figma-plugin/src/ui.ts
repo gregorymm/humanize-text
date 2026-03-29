@@ -77,15 +77,8 @@ function setState(next: UIState) {
   // Apply/Undo button states
   if (next === "results") {
     $("applyAllBtn").classList.remove("hidden");
-    if (hasAppliedAny) {
-      $("undoAllBtn").classList.remove("hidden");
-    } else {
-      $("undoAllBtn").classList.add("hidden");
-    }
-  }
-  if (next === "applied") {
-    $("applyAllBtn").classList.add("hidden");
-    $("undoAllBtn").classList.remove("hidden");
+    $("applyAllBtn").textContent = "Apply all";
+    $("undoAllBtn").classList.add("hidden");
   }
 }
 
@@ -195,6 +188,9 @@ Return a JSON object with this exact structure:
 }
 
 Only include nodes that need changes in rewrites. Nodes scoring 9/10+ can be omitted.
+
+IMPORTANT: In your suggested rewrites, do NOT use em dashes (--). Use commas, periods, colons, or parentheses instead. Em dashes are themselves an AI writing signal. Only use an em dash if there is genuinely no clean alternative, which is rare.
+
 Return ONLY valid JSON. No markdown fencing, no explanation.`;
 }
 
@@ -600,17 +596,15 @@ function handleSandboxMessage(msg: SandboxMessage) {
 
       // Show/hide buttons based on state
       const allApplied = lastResult.rewrites.every(r => appliedSet.has(r.id));
-      const applyBtn = $("applyAllBtn") as HTMLButtonElement;
       if (allApplied) {
-        applyBtn.disabled = true;
-        applyBtn.textContent = "All applied";
-      } else {
-        applyBtn.disabled = false;
-        const remaining = lastResult.rewrites.filter(r => !appliedSet.has(r.id)).length;
-        applyBtn.textContent = `Apply all (${remaining})`;
-      }
-      if (hasAppliedAny) {
+        $("applyAllBtn").classList.add("hidden");
         $("undoAllBtn").classList.remove("hidden");
+      } else {
+        $("applyAllBtn").classList.remove("hidden");
+        $("applyAllBtn").textContent = "Apply all";
+        if (hasAppliedAny) {
+          $("undoAllBtn").classList.remove("hidden");
+        }
       }
 
       if (msg.applied === 0 && msg.failed.length > 0) {

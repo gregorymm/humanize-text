@@ -26,7 +26,7 @@ function getTextNodes(): TextNodeData[] {
 
 async function applyRewrite(nodeId: string, newText: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const node = figma.getNodeById(nodeId);
+    const node = await figma.getNodeByIdAsync(nodeId);
     if (!node) return { success: false, error: `Node ${nodeId} not found` };
     if (node.type !== "TEXT") return { success: false, error: `Node ${nodeId} is not a text layer` };
 
@@ -101,7 +101,7 @@ figma.ui.onmessage = async (msg: UIMessage) => {
       }
     }
     if (applied > 0) {
-      const firstNode = figma.getNodeById(msg.rewrites[0].id);
+      const firstNode = await figma.getNodeByIdAsync(msg.rewrites[0].id);
       if (firstNode) figma.viewport.scrollAndZoomIntoView([firstNode]);
     }
     figma.ui.postMessage({
@@ -123,7 +123,7 @@ figma.ui.onmessage = async (msg: UIMessage) => {
   }
 
   if (msg.type === "select-node") {
-    const node = figma.getNodeById(msg.nodeId);
+    const node = await figma.getNodeByIdAsync(msg.nodeId);
     if (node && "type" in node) {
       figma.currentPage.selection = [node as SceneNode];
       figma.viewport.scrollAndZoomIntoView([node as SceneNode]);
