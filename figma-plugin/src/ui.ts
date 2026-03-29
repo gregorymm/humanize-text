@@ -600,14 +600,25 @@ function handleSandboxMessage(msg: SandboxMessage) {
 
       // Show/hide buttons based on state
       const allApplied = lastResult.rewrites.every(r => appliedSet.has(r.id));
+      const applyBtn = $("applyAllBtn") as HTMLButtonElement;
       if (allApplied) {
-        $("applyAllBtn").classList.add("hidden");
+        applyBtn.disabled = true;
+        applyBtn.textContent = "All applied";
+      } else {
+        applyBtn.disabled = false;
+        const remaining = lastResult.rewrites.filter(r => !appliedSet.has(r.id)).length;
+        applyBtn.textContent = `Apply all (${remaining})`;
       }
       if (hasAppliedAny) {
         $("undoAllBtn").classList.remove("hidden");
       }
 
-      if (msg.failed.length > 0) {
+      if (msg.applied === 0 && msg.failed.length > 0) {
+        // All failed
+        const errMsg = (msg as any).error || "Could not update text layer";
+        $("errorText").textContent = errMsg;
+        $("state-error").classList.remove("hidden");
+      } else if (msg.failed.length > 0) {
         showSuccess(`Applied ${msg.applied}, ${msg.failed.length} failed`);
       } else if (msg.applied > 0) {
         showSuccess(`Applied ${msg.applied} rewrite${msg.applied !== 1 ? "s" : ""}`);
@@ -623,10 +634,19 @@ function handleSandboxMessage(msg: SandboxMessage) {
         if (lastResult) {
           renderRewrites(lastResult.rewrites);
         }
-        // Hide undo button, show apply button, hide success banner
         $("undoAllBtn").classList.add("hidden");
         $("applyAllBtn").classList.remove("hidden");
         $("successBanner").classList.add("hidden");
+      }
+      break;
+
+    case "selection-changed":
+      // If we have results showing and selection changed, show option to re-assess
+      if (currentState === "results" || currentState === "applied") {
+        $("assessBtn").textContent = msg.hasSelection
+          ? `Assess new selection (${msg.count} layer${msg.count !== 1 ? "s" : ""})`
+          : "Assess entire page";
+        $("state-ready").classList.remove("hidden");
       }
       break;
   }

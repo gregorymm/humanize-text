@@ -26,9 +26,10 @@ export interface RewriteSuggestion {
 
 export type SandboxMessage =
   | { type: "text-nodes"; nodes: TextNodeData[]; totalCount: number }
-  | { type: "apply-result"; success: boolean; applied: number; failed: string[] }
+  | { type: "apply-result"; success: boolean; applied: number; failed: string[]; error?: string }
   | { type: "undo-result"; success: boolean; restored: number }
-  | { type: "api-key-value"; key: string };
+  | { type: "api-key-value"; key: string }
+  | { type: "selection-changed"; hasSelection: boolean; count: number };
 
 export type UIMessage =
   | { type: "assess" }
